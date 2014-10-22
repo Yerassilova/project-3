@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<!--Liliya Yerassilova
+    Introduction to Programming
+	Project 2 - Game v-0.2-->
+	
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+        <meta name="keywords"           content="game, version 0.2"/>
+        <meta name="author"             content="Liliya Yerassilova"/> 
+        <title>Game</title>
+	  
+	    <script type="text/javascript">
+	        var curLoc = 0;
+			var score = 0;			
+						
+		    var hasVisitedRoom0 = false;
+		    var hasVisitedRoom1 = false;
+		    var hasVisitedRoom2 = false;
+		    var hasVisitedRoom3 = false;
+		    var hasVisitedRoom4 = false;
+			var hasVisitedRoom5 = false;
+			var hasVisitedRoom6 = false;
+			var hasVisitedRoom7 = false;
+		    
+			
+		   //initial function
+		   function init() {
+		        updateDisplay();
+				buttonVisibility();
+			}
+		   
+		   //navigation functions
+		   function btn_go_North() {
+		    if (curLoc === 3) {
+			    curLoc = 0;	
+                updateDisplay();			
+			   } else {
+			       if (curLoc === 0) {
+				       curLoc = 1;	
+                       updateDisplay();					   
+			        } else {
+					    if (curLoc === 4) {
+				            curLoc = 5;	
+                             updateDisplay();
+						 } else {
+							  if (curLoc === 5) {
+				                  curLoc = 6;	
+                                  updateDisplay();
+							    } else {
+					                navigationError();
+					             }		
+					        }
+					  }
+			     } 
+			  buttonVisibility(); 	 
+		    }
+		 
+		    function btn_go_South() {
+			    if (curLoc === 1) {
+			        curLoc = 0;	
+                    updateDisplay();
+			     } else {
+			          if (curLoc === 0) {
+				          curLoc = 3;
+                          updateDisplay();				  
+				     } else {
+					     if (curLoc === 6) {
+				             curLoc = 5;	
+                             updateDisplay();
+						 } else {
+							  if (curLoc === 5) {
+				                  curLoc = 4;	
+                                  updateDisplay();
+							    } else {
+					                navigationError();
+					             }		
+					        }
+					    }					  
+		           }
+			  buttonVisibility();    
+		    }
+		    
+		    function btn_go_West() {
+		      if (curLoc === 4) {
+                  curLoc = 0;  
+                  updateDisplay();		  
+			      } else {
+			           if (curLoc === 0) {
+				           curLoc = 2;	
+                           updateDisplay();					   
+				        } else {
+						    if (curLoc === 7) {
+				                curLoc = 6;	
+                                updateDisplay();
+						   } else {
+							    if (curLoc === 6) {
+				                    curLoc = 1;	
+                                    updateDisplay();
+							      } else {
+					                  navigationError();
+					               }		
+						      }							
+		                 }				
+	                } 
+			  buttonVisibility(); 
+			}
+	      
+		  function btn_go_East(){
+		     if (curLoc === 2) {
+			     curLoc = 0;
+                 updateDisplay();				 
+			     } else {
+			          if (curLoc === 0) {
+			              curLoc = 4;
+                          updateDisplay();		          
+			            } else {
+						      if (curLoc === 1) {
+				                  curLoc = 6;	
+                                  updateDisplay();
+							  } else {
+							       if (curLoc === 6) {
+				                       curLoc = 7;	
+                                       updateDisplay();
+									} else {
+					                    navigationError();
+					                  }					  
+					            }
+		                }				  
+		        }
+			buttonVisibility(); 
+		  }
+			
+		  function btnGo_click() {		      
+			if (txtCommand.value === "North" || txtCommand.value === "north" || txtCommand.value === "N" || txtCommand.value === "n") {
+			    btn_go_North();			  
+			 } else {
+			    if (txtCommand.value === "South" || txtCommand.value === "south" || txtCommand.value === "S" || txtCommand.value === "s") {
+				    btn_go_South();
+				 } else {
+					if (txtCommand.value === "East" || txtCommand.value === "east" || txtCommand.value === "E" || txtCommand.value === "e") {
+						btn_go_East();
+					  } else {
+						 if (txtCommand.value === "West" || txtCommand.value === "west" || txtCommand.value === "W" || txtCommand.value === "w") {
+							 btn_go_West();
+							} else {
+							    unknownCommand();
+						     }
+					    }
+			       }
+		      }
+		  }
+		  
+		  //story functions
+		  function updateDisplay(message) {
+		            checkScore();
+		            dspScore();		            
+                    switch(curLoc) {
+                        case 0: room0();
+                                break;
+                        case 1: room1();
+                                break;
+                        case 2: room2();
+                                break;
+                        case 3: room3();
+                                break;
+                        case 4: room4();
+                                break;
+						case 5: room5();
+						        break;
+						case 6: room6();
+						        break;
+						case 7: room7();
+						        break;
+                        default: message = "You cannot go this way.";
+                    }	
+		  }
+		  		 
+          function room0() {
+		     message = "You are standing inside a mansion's hall. In the mansion there is a canary in a cage covered with" + "\n" + 
+                        "black cloth, so that it does not sing and you cannot hear it. Your aim is to find the bird and release" + "\n" + 
+						"it. If it sings when flies away, you will become the happiest person."; //room 0
+			 presentMessage(message);	
+		  }
+		  
+		  function room1() {
+		     message = "You entered a dark room with no windows, so you cannot see anything..."; //room 1
+			 presentMessage(message);
+		  }
+		 
+		  function room2() {
+		     message = "You entered a living room, there is a table and an armchair in front of a chimney."; //room 2
+			 presentMessage(message);
+		  }
+		  
+		  function room3() {
+		     message = "You are in a big room, there is a grand piano in the middle of the room and nothing else."; //room 3
+			 presentMessage(message);
+		  }
+		  
+		  function room4() {
+		     message = "You have entered a kitchen."; //room 4
+			 presentMessage(message);
+		  }
+		  
+		  function room5() {
+		     message = "This is a dining hall. There is a large round table in the middle of the room."; //room 5
+			 presentMessage(message);
+		  }
+		  
+		  function room6() {
+		     message = "You entered a small and narrow corridor. You can see pictures of previous owners of the mansion"; //room 6
+			 presentMessage(message);
+		  }
+		  
+		  function room7() {
+		     message = "Now you are in a bedroom. There is a bad, a desk and an old mirror in the room." + "\n" + 
+			           "Now you need to look at the mirror..."; //room 7
+			 presentMessage(message);
+		  }
+		  
+		  		  
+		  function navigationError() {		          
+			  presentMessage("You cannot go that way.");		     		 		        
+		   }
+		   
+		   function unknownCommand() {
+		      presentMessage("I don't understand your command.");
+		   }
+		  
+		  
+		  //utility functions
+		  function presentMessage(message) {
+			   var target = document.getElementById("mainText");
+               target.value = message + "\n\n" + target.value;
+            }	
+			
+		  function buttonVisibility() {
+		     switch(curLoc) {
+			    case 0: document.getElementById("northBtn").disabled = false;
+			            document.getElementById("southBtn").disabled = false;
+			            document.getElementById("westBtn").disabled = false;
+			            document.getElementById("eastBtn").disabled = false;
+                        break;						
+				case 1: document.getElementById("northBtn").disabled = true;
+				        document.getElementById("westBtn").disabled = true;
+						break;
+				case 2: document.getElementById("northBtn").disabled = true;
+			            document.getElementById("southBtn").disabled = true;
+			            document.getElementById("westBtn").disabled = true;
+						break;
+				case 3: document.getElementById("southBtn").disabled = true;
+			            document.getElementById("westBtn").disabled = true;
+			            document.getElementById("eastBtn").disabled = true;
+						break;
+				case 4: document.getElementById("southBtn").disabled = true;
+				        document.getElementById("eastBtn").disabled = true;
+						document.getElementById("westBtn").disabled = false;
+						break;
+				case 5: document.getElementById("westBtn").disabled = true;
+			            document.getElementById("eastBtn").disabled = true;
+						document.getElementById("northBtn").disabled = false;
+			            document.getElementById("southBtn").disabled = false;
+						break;
+				case 6: document.getElementById("northBtn").disabled = true;
+				        document.getElementById("southBtn").disabled = false;
+			            document.getElementById("westBtn").disabled = false;
+			            document.getElementById("eastBtn").disabled = false;
+				        break;
+				case 7: document.getElementById("northBtn").disabled = true;
+			            document.getElementById("southBtn").disabled = true;
+						document.getElementById("eastBtn").disabled = true;
+						document.getElementById("westBtn").disabled = false;
+						break;
+			   default: document.getElementById("northBtn").disabled = false;
+			            document.getElementById("southBtn").disabled = false;
+			            document.getElementById("westBtn").disabled = false;
+			            document.getElementById("eastBtn").disabled = false; 
+		     }
+		   }
+			
+		  // functions for keeping and showing score!
+		  function checkScore() {
+		     if (curLoc === 0) {
+		         if (! hasVisitedRoom0) {	        
+			         score = score + 5;
+				     hasVisitedRoom0 = true;
+				 }
+		     }
+		     
+		     if (curLoc === 1) {			
+			      if (! hasVisitedRoom1) {			  
+			          score = score + 5;
+				      hasVisitedRoom1 = true;
+				  }
+			 }
+				 
+								 		
+			  if (curLoc === 2) {
+			     if (! hasVisitedRoom2) {
+			         score = score + 5;
+				     hasVisitedRoom2 = true;
+				  }
+			 }
+				   
+				   
+			if (curLoc === 3) {
+				  if (! hasVisitedRoom3) {
+			          score = score + 5;
+				      hasVisitedRoom3 = true;
+			       }
+			 }
+				 
+			if (curLoc === 4) {
+			    if (! hasVisitedRoom4) {
+			        score = score + 5;
+				    hasVisitedRoom4 = true;				 
+			     }
+			 }
+				 
+			if (curLoc === 5) {
+			    if (! hasVisitedRoom5) {
+			        score = score + 5;
+				    hasVisitedRoom5 = true;				 
+			     }
+			 }
+				 
+			if (curLoc === 6) {
+			    if (! hasVisitedRoom6) {
+			        score = score + 5;
+				    hasVisitedRoom6 = true;				 
+			     }
+			 }
+				 
+			if (curLoc === 7) {
+			    if (! hasVisitedRoom7) {
+			        score = score + 5;
+				    hasVisitedRoom7 = true;				 
+			     }
+			 }
+		 }
+			     			
+		 function dspScore() {			         
+			     document.getElementById("scoreText").value = "Score:" + score;
+		 }
+						
+	   </script>	 
+       <style>
+	       div {position: absolute;
+		        top: 140px;
+			    left: 465px;
+			    }
+	   </style>     	  
+       </head>
+       <body onload="init();">
+           <h1>
+	          Inside a Mansion
+	       </h1>
+	       <br>
+	           If you want to write to me:
+                     <a href="mailto:liliya-er@mail.ru?Subject=My%20message">
+                        Click here</a>
+	       <br><br>
+	       <textarea rows="15" cols="50" id="mainText"></textarea>
+		   
+          <div id="scorebox">
+                <textarea rows="5" cols="8" id="scoreText"></textarea>	
+	      </div>
+	      <br><br>
+	      Your Command:
+	           <input type="text"
+		              id="txtCommand"
+			          name="txtCommand">
+			   
+	           <input type="button"
+		              value="Go"
+			          onclick="btnGo_click();"/>
+			   
+		       <br><br>
+	           <input type="button"
+	                  value="North"
+			          id="northBtn"
+		              onclick="btn_go_North();" />
+
+               <input type="button"
+	                  value="South"
+			          id="southBtn"
+		              onclick="btn_go_South();" />
+
+               <input type="button"
+	                  value="West"
+			          id="westBtn"
+		              onclick="btn_go_West();" />
+
+               <input type="button"
+	                  value="East"
+			          id="eastBtn"
+		              onclick="btn_go_East();" />
+					  
+					  
+			<p><strong>Map</strong></p>
+			<p>There are too many room that are arranged like a puzzle. In case you get lost....</p>
+			<img src="project3map.png" width-"580" height="500" alt="Map"/>
+			
+			  
+	 
+ 
+      </body>  
+</html>
